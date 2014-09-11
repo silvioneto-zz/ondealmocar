@@ -1,0 +1,4 @@
+
+
+chown -R www-data:www-data app/cache
+chown -R www-data:www-data app/data/
