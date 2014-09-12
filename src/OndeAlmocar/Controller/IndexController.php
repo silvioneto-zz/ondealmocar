@@ -13,6 +13,6 @@ class IndexController
 
        $rest = new Restaurantes();
 
-       return $app['twig']->render('index.html.twig', array('variable' => $rest->getRestaunteHoje()));
+       return $app['twig']->render('index.html.twig', array('restaurante' => $rest->getRestaunteHoje()));
     }
 }

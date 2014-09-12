@@ -10,5 +10,12 @@ $app->get('/view/{name}', function ($name) use ($app) {
     ));
 });
 
+$app->get('/blog/{id}', function ($id) use ($app) {
+    $sql = "SELECT * FROM restaurantes WHERE idRestaurante = ?";
+    $post = $app['db']->fetchAssoc($sql, array((int) $id));
+
+    return  "<h1>{$post['nome']}</h1>";
+});
+
 $app->get('/', 'OndeAlmocar\Controller\IndexController::indexAction')
     ->bind('homepage');

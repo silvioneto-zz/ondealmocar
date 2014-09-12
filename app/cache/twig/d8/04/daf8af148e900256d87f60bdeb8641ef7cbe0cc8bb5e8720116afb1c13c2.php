@@ -33,7 +33,7 @@ class __TwigTemplate_d804daf8af148e900256d87f60bdeb8641ef7cbe0cc8bb5e8720116afb1
         echo "<div id=\"main\" role=\"main\" class=\"container\">
   Hoje o almoço será no ";
         // line 6
-        echo twig_escape_filter($this->env, twig_capitalize_string_filter($this->env, (isset($context["variable"]) ? $context["variable"] : $this->getContext($context, "variable"))), "html", null, true);
+        echo twig_escape_filter($this->env, twig_capitalize_string_filter($this->env, (isset($context["restaurante"]) ? $context["restaurante"] : $this->getContext($context, "restaurante"))), "html", null, true);
         echo "
 </div>
 ";

@@ -2,17 +2,22 @@
 
 namespace OndeAlmocar\Model;
 
+use \Silex\Application;
+use \Symfony\Component\HttpFoundation\Request;
+
 class Restaurantes
 {
 
     private $restaurante;
     private $path_restaurente_hoje;
 
+
     public function __construct()
     {
 
         $this->path_restaurente_hoje = __DIR__.'/../../../app/data/restaurante_hoje.txt';
         $this->path_restaurentes     = __DIR__.'/../../../app/data/restaurantes.txt';
+
 
         if(!file_exists($this->path_restaurente_hoje)){
             throw new \Exception('File not found');
@@ -34,22 +39,20 @@ class Restaurantes
     private function atualiza_restaurante_hoje()
     {
         $data_arquivo = date ('Y-m-d', filemtime($this->path_restaurente_hoje));
-        if($data_arquivo == date('Y-m-d')) return;
+       // if($data_arquivo == date('Y-m-d')) return;
 
         $this->grava_restaurante_hoje($this->getRestauranteRandom());
 
     }
 
-    private function getRestauranteRandom()
+    private function getRestauranteRandom(Request $request, Application $app)
     {
 
-        $restaurantes = explode("\n", (file_get_contents($this->path_restaurentes)));
+        $sql    = "SELECT * FROM restaurantes WHERE nome <> ?";
+        $result =  $app['db']->fetchAssoc($sql, array((string) $this->getRestaunteHoje()));
 
-        if(($key = array_search($this->getRestaunteHoje(), $restaurantes)) !== false) {
-            unset($restaurantes[$key]);
-        }
 
-        $restaurantes = array_map('trim', $restaurantes);
+        $restaurantes = array_map('trim', $result);
         $key          = array_rand($restaurantes);
 
         return $restaurantes[$key];
