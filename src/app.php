@@ -21,7 +21,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'cache' => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
         'strict_variables' => true,
     ),
-    'twig.path' => array(__DIR__ . '/../app/views')
+    'twig.path' => array(__DIR__ . '/OndeAlmocar/views')
 ));
 
 

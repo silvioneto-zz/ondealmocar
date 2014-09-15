@@ -1,6 +1,6 @@
 <?php
 
-namespace OndeAlmocar\Model;
+namespace OndeAlmocar\Models;
 
 use \Silex\Application;
 use \Symfony\Component\HttpFoundation\Request;
@@ -10,14 +10,14 @@ class Restaurantes
 
     private $restaurante;
     private $path_restaurente_hoje;
+    private $app;
 
-
-    public function __construct()
+    public function __construct(Request $request, Application $app)
     {
 
         $this->path_restaurente_hoje = __DIR__.'/../../../app/data/restaurante_hoje.txt';
         $this->path_restaurentes     = __DIR__.'/../../../app/data/restaurantes.txt';
-
+        $this->app = $app;
 
         if(!file_exists($this->path_restaurente_hoje)){
             throw new \Exception('File not found');
@@ -45,11 +45,11 @@ class Restaurantes
 
     }
 
-    private function getRestauranteRandom(Request $request, Application $app)
+    private function getRestauranteRandom()
     {
 
         $sql    = "SELECT * FROM restaurantes WHERE nome <> ?";
-        $result =  $app['db']->fetchAssoc($sql, array((string) $this->getRestaunteHoje()));
+        $result =  $this->app['db']->fetchAssoc($sql, array((string) $this->getRestaunteHoje()));
 
 
         $restaurantes = array_map('trim', $result);

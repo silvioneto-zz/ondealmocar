@@ -17,5 +17,5 @@ $app->get('/blog/{id}', function ($id) use ($app) {
     return  "<h1>{$post['nome']}</h1>";
 });
 
-$app->get('/', 'OndeAlmocar\Controller\IndexController::indexAction')
+$app->get('/', 'OndeAlmocar\Controllers\IndexController::indexAction')
     ->bind('homepage');
